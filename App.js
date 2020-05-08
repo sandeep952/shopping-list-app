@@ -37,9 +37,9 @@ export default function App() {
     <View style={styles.container}>
       <Header />
       <View style={styles.addButton}>
-        <Button title="Add items" onPress={openModal} color="" />
+        <Button title="Add items" onPress={openModal} />
       </View>
-      <Modal style={styles.modal} visible={isModalVisible}>
+      <Modal style={styles.modal} visible={isModalVisible} animationType="fade">
         <View style={styles.inputContainer}>
           <Text>Enter Your Item name here</Text>
           <TextInput
@@ -48,7 +48,18 @@ export default function App() {
             placeholder="Enter item here"
             onChangeText={handleChange}
           />
-          <Button title="Add" onPress={addItem} />
+          <View style={styles.buttons}>
+            <View style={styles.button}>
+              <Button title="Add" onPress={addItem} />
+            </View>
+            <View style={styles.button}>
+              <Button
+                title="Cancel"
+                onPress={() => changeModalVisiblity(false)}
+                color="red"
+              />
+            </View>
+          </View>
         </View>
       </Modal>
       <ItemList list={list} deleteItem={deleteItem} />
@@ -64,6 +75,15 @@ const styles = StyleSheet.create({
   },
   addButton: {
     margin: 40,
+  },
+  buttons: {
+    flexDirection: "row",
+    width: "80%",
+    justifyContent:'space-evenly'
+  },
+
+  button:{
+    width:"30%"
   },
 
   inputContainer: {
