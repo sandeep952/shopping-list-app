@@ -10,7 +10,7 @@ const Header = () => {
 };
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: "purple",
+    backgroundColor: "blue",
     paddingLeft: 20,
     paddingVertical: 10,
   },

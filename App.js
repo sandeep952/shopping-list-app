@@ -12,6 +12,9 @@ export default function App() {
   };
 
   const addItem = () => {
+    if (!itemText) {
+      return;
+    }
     setList([
       ...list,
       {
@@ -26,13 +29,15 @@ export default function App() {
   const openModal = () => {
     changeModalVisiblity(true);
   };
+  const deleteItem = (key) => {
+    setList([...list.filter((item) => item.key != key)]);
+  };
 
   return (
     <View style={styles.container}>
       <Header />
-      {console.log(list)}
       <View style={styles.addButton}>
-        <Button title="Add items" onPress={openModal} />
+        <Button title="Add items" onPress={openModal} color="" />
       </View>
       <Modal style={styles.modal} visible={isModalVisible}>
         <View style={styles.inputContainer}>
@@ -46,7 +51,7 @@ export default function App() {
           <Button title="Add" onPress={addItem} />
         </View>
       </Modal>
-      <ItemList list={list} />
+      <ItemList list={list} deleteItem={deleteItem} />
     </View>
   );
 }
