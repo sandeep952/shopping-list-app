@@ -1,20 +1,22 @@
 import React, { useState } from "react";
 import { StyleSheet, Button, TextInput, View, Text, Modal } from "react-native";
 import Header from "./components/Header";
+import Item from "./components/Item";
+import ItemList from "./components/ItemList";
 export default function App() {
   const [itemText, setItemText] = useState("");
   const [isModalVisible, changeModalVisiblity] = useState(false);
   const [list, setList] = useState([]);
   const handleChange = (item) => {
-    setText(item);
+    setItemText(item);
   };
 
   const addItem = () => {
     setList([
       ...list,
       {
-        key: Math.random(),
-        data: itemText,
+        key: Math.random().toString(),
+        value: itemText,
       },
     ]);
     setItemText("");
@@ -28,7 +30,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Header />
-
+      {console.log(list)}
       <View style={styles.addButton}>
         <Button title="Add items" onPress={openModal} />
       </View>
@@ -39,11 +41,12 @@ export default function App() {
             style={styles.input}
             value={itemText}
             placeholder="Enter item here"
-            onChangeText={() => handleChange()}
+            onChangeText={handleChange}
           />
           <Button title="Add" onPress={addItem} />
         </View>
       </Modal>
+      <ItemList list={list} />
     </View>
   );
 }
@@ -55,8 +58,7 @@ const styles = StyleSheet.create({
     paddingTop: 40,
   },
   addButton: {
-    padding: 10,
-    margin: 20,
+    margin: 40,
   },
 
   inputContainer: {
@@ -69,8 +71,8 @@ const styles = StyleSheet.create({
   input: {
     borderColor: "black",
     borderWidth: 1,
-    marginVertical:20,
-    padding:10
+    marginVertical: 20,
+    padding: 10,
   },
 
   modal: {
